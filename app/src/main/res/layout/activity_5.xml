@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -8,7 +9,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Payment Distribution"
+        android:text="@string/payer_payment_summary"
         android:textSize="24sp"
         android:background="@color/secondary"
         android:textColor="@color/primary"
@@ -32,9 +33,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="24sp"
-                android:text="Total Price"
+                android:text="@string/total_expense"
                 android:textColor="@color/secondary"
-                android:layout_marginRight="16dp"/>
+                android:layout_marginRight="16dp"
+                tools:ignore="RtlHardcoded" />
 
 
             <TextView
@@ -65,7 +67,7 @@
                     android:id="@+id/paymentRow">
 
                     <TextView
-                        android:layout_width="80dp"
+                        android:layout_width="120dp"
                         android:layout_height="wrap_content"
                         android:visibility="gone"
                         android:id="@+id/nameOfPayer"
@@ -73,7 +75,7 @@
                         android:layout_marginBottom="8dp"/>
 
                     <TextView
-                        android:layout_width="80dp"
+                        android:layout_width="40dp"
                         android:layout_height="wrap_content"
                         android:visibility="gone"
                         android:layout_marginRight="16dp"

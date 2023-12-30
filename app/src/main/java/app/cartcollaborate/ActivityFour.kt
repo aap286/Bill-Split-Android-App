@@ -1,6 +1,7 @@
 package app.cartcollaborate
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -39,25 +40,20 @@ class ActivityFour : ComponentActivity() {
 
             // pointer for the table of the view
             val table = findViewById<LinearLayout>(R.id.tbl)
+            table.gravity = Gravity.CENTER
+
             // calling table header from the xml
             val itemName = findViewById<TextView>(R.id.tbl_header)
-            itemName.text = "Item Name"
-            itemName.textSize = 24f
-            itemName.setTextColor(ContextCompat.getColor(this, R.color.secondary))
-            // adding to view
+            itemName.addingItemName(this)
+
             table.removeView(itemName)
             table.addView(itemName)
-            table.gravity = Gravity.CENTER
+
 
 
             for (name in payers) {
-                val payer = TextView(this)
-                payer.text = name.toString()
-                payer.textSize = 24f
-                payer.layoutParams = itemName.layoutParams
-                payer.setTextColor(ContextCompat.getColor(this, R.color.secondary))
+                val payer = addPayer(name.toString(), this, itemName)
                 table.addView(payer)
-
                 userPaymentSelection[name] = mutableListOf()
 
             }
@@ -73,7 +69,8 @@ class ActivityFour : ComponentActivity() {
 
                 // create a temporary text view to hold the name
                 val nameOfItem = TextView(this)
-                nameOfItem.text = item
+
+                nameOfItem.text = formatItemName(item, 10)
                 nameOfItem.setTextColor(ContextCompat.getColor(this, R.color.secondary))
 
                 // setting layout params
@@ -96,7 +93,7 @@ class ActivityFour : ComponentActivity() {
                     btn.isChecked = false
                     btn.layoutParams = myCheckBox.layoutParams
                     btn.buttonTintList = myCheckBox.buttonTintList
-                    btn.textSize = 24f
+                    btn.textSize = 32f
                     btn.gravity = Gravity.CENTER
                     btn.setTextColor(ContextCompat.getColor(this, R.color.secondary))
 
@@ -168,6 +165,38 @@ class ActivityFour : ComponentActivity() {
         }
     }
 
+}
+
+// formats the string of the name of the item
+fun formatItemName(name:String,  n: Int): String {
+
+    if (name.length > n) {
+        val firstPart = name.substring(0, n - 3)
+        val secondPart = name.substring(n - 3)
+        return "$firstPart-\n$secondPart"
+    }
+
+    return name
+}
+
+// adding item name
+@SuppressLint("SetTextI18n")
+fun TextView.addingItemName(context: Context) {
+    this.text = "Item Name"
+    this.textSize = 24f
+    this.setTextColor(ContextCompat.getColor(context, R.color.secondary))
+}
+
+// add payers name
+fun addPayer(name:String, context: Context, layout: TextView): TextView {
+    val payer = TextView(context)
+    payer.text = formatItemName(name, 8)
+    payer.textSize = 24f
+    payer.layoutParams = layout.layoutParams
+    payer.setTextColor(ContextCompat.getColor(context, R.color.secondary))
+    payer.gravity = Gravity.CENTER
+
+    return payer
 }
 
 

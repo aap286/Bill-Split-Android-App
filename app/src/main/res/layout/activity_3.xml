@@ -8,7 +8,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Check Quantity"
+        android:text="@string/quantity_breakdown"
         android:textSize="24sp"
         android:background="@color/secondary"
         android:textColor="@color/primary"
@@ -50,7 +50,7 @@
             android:layout_height="48dp"
             android:gravity="center"
             android:id="@+id/nextPg"
-            android:text="Next Page"
+            android:text="Payment Assignment"
             android:textSize="24sp"
             android:textAllCaps="false"
             android:textColor="@color/primary"
