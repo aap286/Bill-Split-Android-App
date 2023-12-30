@@ -4,9 +4,11 @@ import android.app.AlertDialog
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.Gravity
 import android.view.ViewGroup
@@ -27,7 +29,8 @@ class ActivityTwo : ComponentActivity() {
 
     private val db =
         Firebase.firestore.collection("Items") // connects to the Items collection directly
-    private val groceryDict = mutableMapOf<String, MutableList<String>>() //  empty grocery dictionary
+    private val groceryDict =
+        mutableMapOf<String, MutableList<String>>() //  empty grocery dictionary
 
     // selected grocery items
     private val selectedItems = mutableListOf<String>()
@@ -58,12 +61,12 @@ class ActivityTwo : ComponentActivity() {
         "#D4BF4D",   // Canned Goods - Mustard Yellow
         "#F2CDC8",   // Baking - Soft Pink
         "#A7B8C1",   // Snacks - Dusty Blue
-        "#C0745D",   // Spices - Terra Cotta
+        "#C0745D",   // Spices - Terra
         "#D4B48D",   // Condiments - Muted Mustard
         "#AED8E6",   // Frozen Foods - Icy Blue
         "#65815E",   // Drinks - Vintage Green
         "#AFAFAF",   // Household - Antique Gray
-        "#CAB8E6"    // Other - Faded Lavende
+        "#CAB8E6"    // Other - Faded Lavender
     )
 
 
@@ -98,13 +101,12 @@ class ActivityTwo : ComponentActivity() {
             val priceOfItemBeforeFilter = findViewById<EditText>(R.id.priceOfItem)
             val categoryOfItem: Int = findViewById<Spinner>(R.id.categoryInput).selectedItemPosition
 
-            val nameOfItem = nameOfItemBeforeFilter.text.toString().lowercase().split(" ")
-                .joinToString(" ") { it.replaceFirstChar { char -> char.uppercase() } }
+            val nameOfItem = nameOfItemBeforeFilter.formatUserInput().toString()
             val priceOfItem = priceOfItemBeforeFilter.text.toString()
 
 
             //   only submit if both fields filled
-            if (nameOfItem.isNotBlank() && priceOfItem.isNotBlank()) {
+            if ( nameOfItem.isNotBlank() && priceOfItem.isNotBlank()) {
 
                 // store new data to database
                 val newItem = hashMapOf(
@@ -141,7 +143,7 @@ class ActivityTwo : ComponentActivity() {
                         Log.w(TAG, "Error checking document existence", e)
                     }
             } else {
-                checkAndShowAlert(this, nameOfItem, priceOfItem)
+                checkAndShowAlert(nameOfItem, priceOfItem)
             }
         }
 
@@ -151,8 +153,7 @@ class ActivityTwo : ComponentActivity() {
             val nameOfItemBeforeFilter = findViewById<EditText>(R.id.nameOfItem)
             val priceOfItemBeforeFilter = findViewById<EditText>(R.id.priceOfItem)
 
-            val nameOfItem = nameOfItemBeforeFilter.text.toString().lowercase().split(" ")
-                .joinToString(" ") { it.replaceFirstChar { char -> char.uppercase() } }
+            val nameOfItem = nameOfItemBeforeFilter.formatUserInput().toString()
             val priceOfItem = priceOfItemBeforeFilter.text.toString()
 
             //   only submit if both fields filled
@@ -187,7 +188,7 @@ class ActivityTwo : ComponentActivity() {
                         }
                     }
             } else {
-                checkAndShowAlert(this, nameOfItem, priceOfItem)
+                checkAndShowAlert(nameOfItem, priceOfItem)
             }
         }
 
@@ -224,7 +225,6 @@ class ActivityTwo : ComponentActivity() {
 
     // alert message if user forget to add details
     private fun showAlertForMissingDetails(
-        context: Context,
         isNameMissing: Boolean,
         isPriceMissing: Boolean
     ) {
@@ -240,16 +240,21 @@ class ActivityTwo : ComponentActivity() {
         showAlertDialog(title, message)
     }
 
-    private fun checkAndShowAlert(context: Context, nameOfItem: String, priceOfItem: String) {
+    private fun checkAndShowAlert(nameOfItem: String, priceOfItem: String) {
         when {
             nameOfItem.isBlank() && priceOfItem.isBlank() -> showAlertForMissingDetails(
-                context,
-                true,
-                true
+                isNameMissing = true,
+                isPriceMissing = true
             )
 
-            nameOfItem.isBlank() -> showAlertForMissingDetails(context, true, false)
-            priceOfItem.isBlank() -> showAlertForMissingDetails(context, false, true)
+            nameOfItem.isBlank() -> showAlertForMissingDetails(
+                isNameMissing = true,
+                isPriceMissing = false
+            )
+            priceOfItem.isBlank() -> showAlertForMissingDetails(
+                isNameMissing = false,
+                isPriceMissing = true
+            )
             else -> {
                 // Both name and price are provided, no alert needed
             }
@@ -326,8 +331,11 @@ class ActivityTwo : ComponentActivity() {
         val alertDialog = builder.create()
         alertDialog.show()
 
-        // Delay the dismissal of the dialog after 500 milliseconds
-        Handler().postDelayed({ alertDialog.dismiss() }, 1700)
+        Looper.myLooper()?.let {
+            Handler(it).postDelayed({
+                alertDialog.dismiss()
+            }, 1700)
+        }
     }
 
     // creating button to display item name and price
@@ -344,10 +352,7 @@ class ActivityTwo : ComponentActivity() {
         itemBtn.textSize = 16f
         itemBtn.setTextColor(ContextCompat.getColor(context, R.color.primary))
         itemBtn.gravity = Gravity.CENTER
-        itemBtn.background.setColorFilter(
-            Color.parseColor(categoryColors[values[1]]),
-            android.graphics.PorterDuff.Mode.SRC
-        )
+        itemBtn.backgroundTintList = ColorStateList.valueOf(Color.parseColor(categoryColors[values[1]]))
         itemBtn.layoutParams = LinearLayout.LayoutParams(
             310,
             ViewGroup.LayoutParams.WRAP_CONTENT
@@ -405,6 +410,15 @@ fun formatButtonString(name: String, price: String, n: Int): String {
 
     return newString + "\n" + price
 
+}
+
+// formats user input for name
+fun EditText.formatUserInput(){
+    this.text.toString().lowercase().split(" ")
+        .joinToString(" ") {
+            it.replaceFirstChar { char -> char.uppercase() }
+
+        }
 }
 
 
