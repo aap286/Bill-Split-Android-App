@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+android:background="@color/primary">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Manage Grocery Items"
+        android:textSize="24sp"
+        android:background="@color/secondary"
+        android:textColor="@color/primary"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="16dp"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="16dp">
+
+        <LinearLayout
+            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_weight="0.07"
+            android:baselineAligned="true">
+
+            <EditText
+                android:id="@+id/nameOfItem"
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="0.7"
+                android:hint="Item Name"
+                android:textSize="16sp"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textColor="@color/secondary"
+                android:layout_marginEnd="8dp"
+                android:textColorHint="@color/secondary"
+                android:backgroundTint="@color/secondary"
+                />
+
+            <EditText
+                android:id="@+id/priceOfItem"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.3"
+                android:hint="Price"
+                android:textSize="16sp"
+                android:inputType="numberDecimal"
+                android:textColor="@color/secondary"
+                android:textColorHint="@color/secondary"
+                android:layout_marginStart="8dp"
+            android:backgroundTint="@color/secondary"/>
+
+        </LinearLayout>
+
+        <Spinner
+            android:id="@+id/categoryInput"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="8dp"
+            android:textSize="24sp"
+            android:background="@color/secondary"
+            android:textColor="@color/primary"
+            android:hint="Select a Category"/>
+
+        <Button
+            android:id="@+id/addItemBtn"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="8dp"
+            android:text="Add Item"
+            android:textSize="24sp"
+            android:textAllCaps="false"
+            android:textColor="@color/primary"
+            android:background="@color/secondary"/>
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="8dp"
+            android:text="Update Item"
+            android:id="@+id/updateItemBtn"
+            android:textSize="24sp"
+            android:textAllCaps="false"
+            android:textColor="@color/primary"
+            android:background="@color/secondary"/>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.6"
+            android:layout_marginVertical="8dp"
+            android:gravity="center_horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingVertical="8dp"
+                android:gravity="center_horizontal">
+
+
+                <GridLayout
+                    android:id="@+id/groceryBtnLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:columnCount="4"
+                    android:rowCount="1"
+                    android:layout_gravity="center"
+                    android:columnOrderPreserved="false"
+                    android:alignmentMode="alignMargins"
+                    android:gravity="center_horizontal"
+                    />
+
+            </LinearLayout>
+
+
+
+        </ScrollView>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/testingError">
+
+        </LinearLayout>
+        <Button
+            android:id="@+id/submitItems"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:gravity="center"
+            android:text="Proceed"
+            android:textSize="24sp"
+            android:textAllCaps="false"
+            android:textColor="@color/primary"
+            android:background="@color/accent"/>
+
+    </LinearLayout>
+
+</LinearLayout>

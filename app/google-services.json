@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "610518637198",
+    "project_id": "bill-split-63047",
+    "storage_bucket": "bill-split-63047.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:610518637198:android:9ab0ce4a97a787cca5c7df",
+        "android_client_info": {
+          "package_name": "app.cartcollaborate"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApuhRRsIpAok8UdDu3JOR2nJpn1kmrfho"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

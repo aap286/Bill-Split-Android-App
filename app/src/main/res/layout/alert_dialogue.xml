@@ -1,0 +1,27 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/secondary">
+
+    <TextView
+        android:id="@+id/dialogTitile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textColor="@color/primary"
+        android:textSize="24sp"
+        android:padding="16dp"/>
+
+    <TextView
+        android:id="@+id/dialogBody"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textColor="@color/primary"
+        android:textSize="16sp"
+        android:padding="16dp"/>
+
+
+</LinearLayout>

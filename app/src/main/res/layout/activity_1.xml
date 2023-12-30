@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingHorizontal="36dp"
+    android:paddingTop="0dp"
+    android:gravity="top|fill"
+    android:background="@color/primary">
+
+
+
+    <ImageView
+        android:layout_marginTop="24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/logo_billsplit"
+        android:layout_gravity="center"
+        />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/userInput"
+            android:paddingVertical="8dp"
+            android:paddingHorizontal="8dp"
+            android:textSize="24dp"
+            android:inputType="text"
+            android:hint="Input Names"
+            android:layout_marginTop="16dp"
+            android:textColorHint="@color/secondary"
+            android:textColor="@color/secondary"
+            android:backgroundTint="@color/secondary"
+            />
+
+
+    <Button
+        android:id="@+id/SubmitNamesBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/accent"
+        android:padding="16dp"
+        android:text="Confirm Names"
+        android:textAllCaps="false"
+        android:textColor="@color/primary"
+        android:textSize="24sp" />
+
+</LinearLayout>
