@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "CartCollaborate"
+rootProject.name = "Bill Split"
 include(":app")
  
