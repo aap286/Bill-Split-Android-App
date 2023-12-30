@@ -101,7 +101,7 @@ class ActivityTwo : ComponentActivity() {
             val priceOfItemBeforeFilter = findViewById<EditText>(R.id.priceOfItem)
             val categoryOfItem: Int = findViewById<Spinner>(R.id.categoryInput).selectedItemPosition
 
-            val nameOfItem = nameOfItemBeforeFilter.formatUserInput().toString()
+            val nameOfItem = nameOfItemBeforeFilter.text.toString()
             val priceOfItem = priceOfItemBeforeFilter.text.toString()
 
 
@@ -110,12 +110,13 @@ class ActivityTwo : ComponentActivity() {
 
                 // store new data to database
                 val newItem = hashMapOf(
-                    "Item" to nameOfItem,
+                    "Item" to formatUserInput(nameOfItem),
                     "Price" to priceOfItem.formatToTwoDecimals(),
                     "Category" to categories[categoryOfItem]
                 )
 
-                val docRef = db.document(nameOfItem)
+
+                val docRef = db.document(formatUserInput(nameOfItem))
 
                 docRef.get()
                     .addOnSuccessListener { documentSnapshot ->
@@ -153,26 +154,25 @@ class ActivityTwo : ComponentActivity() {
             val nameOfItemBeforeFilter = findViewById<EditText>(R.id.nameOfItem)
             val priceOfItemBeforeFilter = findViewById<EditText>(R.id.priceOfItem)
 
-            val nameOfItem = nameOfItemBeforeFilter.formatUserInput().toString()
+            val nameOfItem = nameOfItemBeforeFilter.text.toString()
             val priceOfItem = priceOfItemBeforeFilter.text.toString()
 
             //   only submit if both fields filled
             if (nameOfItem.isNotBlank() && priceOfItem.isNotBlank()) {
 
-                val docRef = db.document(nameOfItem)
+                val docRef = db.document(formatUserInput(nameOfItem))
 
                 docRef.get()
                     .addOnSuccessListener { documentSnapshot ->
                         if (documentSnapshot.exists()) {
-                            db.document(nameOfItem)
+                            db.document(formatUserInput(nameOfItem))
                                 .update("Price", priceOfItem.formatToTwoDecimals())
                                 .addOnSuccessListener {
                                     updateGroceryList()
-                                    Log.d(TAG, "DocumentSnapshot updated successfully")
                                     nameOfItemBeforeFilter.setText("")
                                     priceOfItemBeforeFilter.setText("")
                                     showAlertDialog(
-                                        "Item Updated   ",
+                                        "Item Updated",
                                         "Your item has been successfully updated."
                                     )
                                 }
@@ -379,6 +379,7 @@ class ActivityTwo : ComponentActivity() {
 
             db.document(values[0]).delete()
                 .addOnSuccessListener {
+                    Log.d("Delete Item", "Deleted Item")
                     layout.removeView(itemBtn)
                 }
                 .addOnFailureListener { e ->
@@ -413,8 +414,8 @@ fun formatButtonString(name: String, price: String, n: Int): String {
 }
 
 // formats user input for name
-fun EditText.formatUserInput(){
-    this.text.toString().lowercase().split(" ")
+fun formatUserInput(str: String): String {
+    return str.lowercase().split(" ")
         .joinToString(" ") {
             it.replaceFirstChar { char -> char.uppercase() }
 
